@@ -58,6 +58,8 @@ namespace valley {
             operator bool() const;
             R operator()(Args ... args) const;
 
+            void clear();
+            
         private:
             template <typename FR>
             static constexpr bool is_compatible()
@@ -239,5 +241,10 @@ namespace valley {
             return (*apply_)(storage_, std::forward<Args>(args)...);
         }
 
+        template<typename R, typename ...Args>
+        inline void Delegate<R(Args...)>::clear()
+        {
+            apply_ = nullptr;
+        }
     }
 }
